@@ -1,14 +1,19 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
+
+import 'airship.dart';
 
 void main() {
   runApp(GameWidget(game: CrowGame()));
 }
 
-class CrowGame extends FlameGame {
+class CrowGame extends FlameGame with TapDetector {
   late SpriteAnimationComponent crow;
+
+  Vector2 gravity = Vector2(0, 30);
 
   @override
   void onLoad() async {
@@ -36,8 +41,25 @@ class CrowGame extends FlameGame {
         animation: crowAnimation,
         position: size / 2,
         anchor: Anchor.center,
-        size: Vector2(size.y * 350 / 400, size.y));
+        size: Vector2(size.y * 350 / 400, size.y) * .5);
 
     add(crow);
+    add(AirShip());
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (crow.y < size.y && crow.y > 0) {
+      gravity.y += .4;
+      crow.position += gravity * dt;
+    }
+  }
+
+  @override
+  void onTapUp(TapUpInfo info) {
+    // print('tap');
+    gravity.y -= 20;
+    super.onTapUp(info);
   }
 }
