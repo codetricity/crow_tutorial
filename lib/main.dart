@@ -8,6 +8,8 @@ void main() {
 }
 
 class CrowGame extends FlameGame {
+  late SpriteAnimationComponent crow;
+
   @override
   void onLoad() async {
     super.onLoad();
@@ -21,10 +23,21 @@ class CrowGame extends FlameGame {
         baseVelocity: Vector2(10, 0),
         velocityMultiplierDelta: Vector2(1.6, 1.0));
     add(mountainBackground);
-    add(SpriteComponent(
-      position: size / 2,
-      anchor: Anchor.center,
-      sprite: await loadSprite('crow350x400.png', srcSize: Vector2(350, 400)),
-    ));
+
+    final crowAnimation = await loadSpriteAnimation(
+        'crow350x400.png',
+        SpriteAnimationData.sequenced(
+            amount: 12,
+            amountPerRow: 4,
+            stepTime: 0.1,
+            textureSize: Vector2(350, 400)));
+
+    crow = SpriteAnimationComponent(
+        animation: crowAnimation,
+        position: size / 2,
+        anchor: Anchor.center,
+        size: Vector2(size.y * 350 / 400, size.y));
+
+    add(crow);
   }
 }
