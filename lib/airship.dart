@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 
-import 'main.dart';
+import 'crow_game.dart';
 
 class AirShip extends SpriteComponent with HasGameRef<CrowGame> {
   @override
