@@ -1,8 +1,13 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 import '../main.dart';
 
-class Crow extends SpriteAnimationComponent with HasGameRef<CrowGame> {
+class Crow extends SpriteAnimationComponent
+    with HasGameRef<CrowGame>, CollisionCallbacks {
+  Crow() : super() {
+    debugMode = true;
+  }
   @override
   void onLoad() async {
     await super.onLoad();
@@ -17,6 +22,7 @@ class Crow extends SpriteAnimationComponent with HasGameRef<CrowGame> {
     position = gameRef.size / 2;
     anchor = Anchor.center;
     size = Vector2(gameRef.size.y * 350 / 400, gameRef.size.y) * .5;
+    add(RectangleHitbox.relative(Vector2(.8, .3), parentSize: size));
   }
 
   @override
@@ -28,5 +34,12 @@ class Crow extends SpriteAnimationComponent with HasGameRef<CrowGame> {
     } else if (!gameRef.showingGameOverScreen) {
       gameRef.gameOver = true;
     }
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    gameRef.gameOver = true;
+    super.onCollisionStart(intersectionPoints, other);
   }
 }

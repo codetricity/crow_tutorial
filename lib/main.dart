@@ -10,7 +10,8 @@ void main() {
   runApp(GameWidget(game: CrowGame()));
 }
 
-class CrowGame extends FlameGame with HasTappableComponents {
+class CrowGame extends FlameGame
+    with HasTappableComponents, HasCollisionDetection {
   Vector2 gravity = Vector2(0, 30);
   late final RouterComponent router;
   bool gameOver = false;

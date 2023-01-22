@@ -6,6 +6,8 @@ import '../actors/airship.dart';
 import '../main.dart';
 
 class GamePlayScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
+  Timer interval = Timer(6, repeat: true);
+
   @override
   void onLoad() async {
     await super.onLoad();
@@ -21,7 +23,14 @@ class GamePlayScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
     add(mountainBackground);
 
     add(gameRef.crow);
-    add(AirShip());
+
+    interval.onTick = () => add(AirShip());
+  }
+
+  @override
+  void update(double dt) {
+    interval.update(dt);
+    super.update(dt);
   }
 
   @override
