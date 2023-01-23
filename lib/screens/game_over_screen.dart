@@ -21,6 +21,15 @@ class GameOverScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
   }
 
   @override
+  void update(double dt) {
+    if (gameRef.elapsedTime.isRunning) {
+      gameRef.elapsedTime.reset();
+      gameRef.elapsedTime.stop();
+    }
+    super.update(dt);
+  }
+
+  @override
   bool containsLocalPoint(Vector2 point) => true;
 
   @override
@@ -30,6 +39,7 @@ class GameOverScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
     gameRef.gameOver = false;
     gameRef.gravity = Vector2(0, 30);
     gameRef.router.pop();
+    gameRef.elapsedTime.start();
     super.onTapUp(event);
   }
 }

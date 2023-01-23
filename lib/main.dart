@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Route;
 import 'actors/crow.dart';
 import 'screens/game_over_screen.dart';
 import 'screens/game_play_screen.dart';
+import 'screens/start_screen.dart';
 
 void main() {
   runApp(GameWidget(game: CrowGame()));
@@ -17,16 +18,18 @@ class CrowGame extends FlameGame
   bool gameOver = false;
   bool showingGameOverScreen = false;
   Crow crow = Crow();
+  Stopwatch elapsedTime = Stopwatch();
 
   @override
   void onLoad() async {
     super.onLoad();
     add(
       router = RouterComponent(
-        initialRoute: 'gameplay',
+        initialRoute: 'start',
         routes: {
           'gameplay': Route(GamePlayScreen.new),
           'gameover': Route(GameOverScreen.new),
+          'start': Route(StartScreen.new),
         },
       ),
     );

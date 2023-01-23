@@ -3,6 +3,7 @@ import 'package:flame/experimental.dart';
 import 'package:flame/parallax.dart';
 
 import '../actors/airship.dart';
+import '../gui/elapsed_time.dart';
 import '../main.dart';
 
 class GamePlayScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
@@ -11,6 +12,7 @@ class GamePlayScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
   @override
   void onLoad() async {
     await super.onLoad();
+    gameRef.elapsedTime.start();
     ParallaxComponent mountainBackground = await gameRef.loadParallaxComponent([
       ParallaxImageData('sky.png'),
       ParallaxImageData('clouds_bg.png'),
@@ -25,6 +27,7 @@ class GamePlayScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
     add(gameRef.crow);
 
     interval.onTick = () => add(AirShip());
+    add(ElapsedTime());
   }
 
   @override
