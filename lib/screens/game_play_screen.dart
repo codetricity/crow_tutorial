@@ -25,9 +25,31 @@ class GamePlayScreen extends Component with HasGameRef<CrowGame>, TapCallbacks {
     add(mountainBackground);
 
     add(gameRef.crow);
-
-    interval.onTick = () => add(AirShip());
+    addShips();
     add(ElapsedTime());
+  }
+
+  void addShips() {
+    interval.onTick = () {
+      double elapsedSeconds = gameRef.elapsedTime.elapsed.inSeconds.toDouble();
+
+      void addShipAtSecond(int secondToAdd) {
+        Future.delayed(Duration(seconds: secondToAdd), () {
+          add(AirShip());
+        });
+      }
+
+      add(AirShip());
+      if (elapsedSeconds > 10.0) {
+        addShipAtSecond(3);
+      }
+      if (elapsedSeconds > 20.0) {
+        addShipAtSecond(2);
+      }
+      if (elapsedSeconds > 30.0) {
+        addShipAtSecond(4);
+      }
+    };
   }
 
   @override

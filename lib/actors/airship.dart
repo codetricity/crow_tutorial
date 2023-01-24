@@ -32,5 +32,13 @@ class AirShip extends SpriteComponent with HasGameRef<CrowGame> {
     } else {
       removeFromParent();
     }
+
+    if (gameRef.elapsedTime.elapsed.inSeconds > 30 && x > gameRef.crow.x) {
+      if (gameRef.crow.y > y) {
+        y += 3 * dt;
+      } else {
+        y -= 3 * dt;
+      }
+    }
   }
 }
