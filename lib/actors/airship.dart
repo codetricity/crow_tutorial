@@ -7,7 +7,7 @@ import '../main.dart';
 
 class AirShip extends SpriteComponent with HasGameRef<CrowGame> {
   AirShip() : super() {
-    debugMode = true;
+    // debugMode = true;
   }
   final _random = Random();
   @override

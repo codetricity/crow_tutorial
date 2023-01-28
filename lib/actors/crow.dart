@@ -6,7 +6,7 @@ import '../main.dart';
 class Crow extends SpriteAnimationComponent
     with HasGameRef<CrowGame>, CollisionCallbacks {
   Crow() : super() {
-    debugMode = true;
+    // debugMode = true;
   }
   @override
   void onLoad() async {
